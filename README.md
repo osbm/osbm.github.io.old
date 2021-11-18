@@ -1,3 +1,3 @@
-# osmanfbayram.github.io
 
-The website
+Look at this boring page, until i make something more interesting
+
