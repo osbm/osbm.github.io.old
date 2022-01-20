@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0" />
+    <title>cdf calculator</title>
+</head>
+
+<!-- styling by Atakan Beddall version 1.1-->
+<style>
+    @media only screen and (max-width: 600px) {
+        
+        input[type=text] {
+            font-size: 100%;
+            width: 100px;
+            height: 30px;
+
+        }
+
+        button {
+            width: 100%;
+            font-size: 120%;
+        }
+    }
+
+    body {
+        background-color: rgb(250, 250, 250);
+    }
+
+    button {
+        background-color: rgba(240, 240, 240, 0.5);
+        color: black;
+        border: 2px solid #e7e7e7;
+        transition-duration: 0.4s;
+        padding: 5px;
+        margin: 1px;
+    }
+
+    button:hover {
+        background-color: #e7e7e7;
+    }
+
+    button:focus {
+        outline-color: cornflowerblue;
+        transition-duration: 1s;
+    }
+
+    input[type=text] {
+
+        padding: 2px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        transition-duration: 0.4s;
+    }
+
+    input[type=text]:hover {
+        background-color: rgb(254, 254, 254);
+    }
+
+    input[type=text]:focus {
+        background-color: blanchedalmond;
+        outline: 0;
+    }
+
+</style>
+
+<body>
+    <hr>
+    <input type="text" size="5" id="zInput"><span> z value</span><br>
+    <button type="button" onclick="getZcdf();">calculate <code>normcdf(z) = P(Z&lt;z)</code></button>
+    <p id="resultZ"></p>
+    <hr>
+    <input type="text" size="5" id="tInput"> t value<br>
+    <input type="text" size="5" id="tnuInput"> &nu; value<br>
+    <button type="button" onclick="getTcdf();">calculate <code>tcdf(t,&nu;) = P(T&lt;t)</code></button>
+    <p id="resultT"></p>
+    <hr>
+    <input type="text" size="5" id="c2Input"> &chi;<sup>2</sup> value<br>
+    <input type="text" size="5" id="c2nuInput"> &nu; value<br>
+    <button type="button" onclick="getC2cdf();">calculate <code>chi2cdf(&chi;<sup>2</sup>,&nu;) = P(&chi;<sup>2</sup>&lt;<small>&chi;<sup>2</sup></small>)</code></button>
+    <p id="resultC2"></p>
+    <hr>
+    <input type="text" size="5" id="pzInput"> Probability<br>
+    <button type="button" onclick="getZPcdf();">calculate the <code>z</code> value</button>
+    <p id="resultZP"></p>
+    <hr>
+    <input type="text" size="5" id="ptInput"> Probability<br>
+    <input type="text" size="5" id="ptnuInput"> &nu;<br>
+    <button type="button" onclick="getTPcdf();">calculate the <code>t</code> value</button>
+    <p id="resultTP"></p>
+    <hr>
+    <input type="text" size="5" id="pc2Input"> Probability<br>
+    <input type="text" size="5" id="pc2nuInput"> &nu;<br>
+    <button type="button" onclick="getC2Pcdf();">calculate the <code>&chi;<sup>2</sup></code> value</button>
+    <p id="resultC2P"></p>
+    <hr>
+    Please report problems to Andrew at BAU.
+    <script>
+	
+        //
+        // compute cdf values
+        //
+        function getZcdf() {
+            var z = Number(document.getElementById("zInput").value);
+            document.getElementById("resultZ").innerHTML = "<code>&nbsp;normdcdf(" + z + ") = <b>" + normcdf(z).toFixed(4) + "</b></code>";
+        }
+
+        function getTcdf() {
+            var t = Number(document.getElementById("tInput").value);
+            var tnu = Math.floor(Number(document.getElementById("tnuInput").value));
+            document.getElementById("resultT").innerHTML = "<code>&nbsp;tcdf(" + t + "," + tnu + ") = <b>" + tcdf(t, tnu).toFixed(4) + "</b></code>";
+        }
+
+        function getC2cdf() {
+            var c2 = Number(document.getElementById("c2Input").value);
+            var c2nu = Math.floor(Number(document.getElementById("c2nuInput").value));
+            document.getElementById("resultC2").innerHTML = "<code>&nbsp;chi2cdf(" + c2 + "," + c2nu + ") = <b>" + chi2cdf(c2, c2nu).toFixed(4) + "</b></code>";
+        }
+
+        //
+        // compute inverse cdf values
+        //
+        function getZPcdf() {
+            var p = Number(document.getElementById("pzInput").value);
+            if (p <= 0 || p >= 1) {
+                document.getElementById("resultZP").innerHTML = "Enter a probability in the range (0,1)";
+            } else {
+                var z = Number(invnormcdf(p));
+                document.getElementById("resultZP").innerHTML = "<code>&nbsp;P(Z&lt;<b>" + z.toFixed(4) + "</b>) = " + normcdf(z).toFixed(4) + "</code>";
+            }
+        }
+
+        // bisection search for z
+        function invnormcdf(p) {
+            var lb, ub, m, e, pp;
+            if (p == 0.5) return 0.;
+            if (p < 0.5) {
+                lb = -5.0;
+                ub = 0;
+            } else {
+                lb = 0.0;
+                ub = 5.0;
+            }
+            for (var i = 0; i < 100; i++) {
+                m = (lb + ub) / 2;
+                e = (ub - lb) / 2;
+                if (e < 0.00001) break;
+                pp = normcdf(m);
+                if (pp < p) {
+                    lb = m;
+                } else {
+                    ub = m;
+                }
+            }
+            return m;
+        }
+
+        function getTPcdf() {
+            var p = Number(document.getElementById("ptInput").value);
+            var nu = Math.floor(Number(document.getElementById("ptnuInput").value));
+            if (p <= 0 || p >= 1 || nu < 1) {
+                document.getElementById("resultTP").innerHTML = "Enter a probability in the range (0,1) and &nu;&gt;0";
+            } else {
+                var t = Number(invtcdf(p, nu));
+                document.getElementById("resultTP").innerHTML = "<code>&nbsp;P(T&lt;<b>" + t.toFixed(4) + "|&nu;=" + nu + "</b>) = " + tcdf(t, nu).toFixed(4) + "</code>";
+            }
+        }
+
+        // bisection search for t
+        function invtcdf(p, nu) {
+            var lb, ub, m, e, pp;
+            if (p == 0.5) return 0.;
+            if (p < 0.5) {
+                lb = -5.0;
+                ub = 0;
+            } else {
+                lb = 0.0;
+                ub = 5.0;
+            }
+            for (var i = 0; i < 100; i++) {
+                m = (lb + ub) / 2;
+                e = (ub - lb) / 2;
+                if (e < 0.00001) break;
+                pp = tcdf(m, nu);
+                if (pp < p) {
+                    lb = m;
+                } else {
+                    ub = m;
+                }
+            }
+            return m;
+        }
+
+        function getC2Pcdf() {
+            var p = Number(document.getElementById("pc2Input").value);
+            var nu = Math.floor(Number(document.getElementById("pc2nuInput").value));
+            if (p <= 0 || p >= 1 || nu < 1) {
+                document.getElementById("resultC2P").innerHTML = "Enter a probability in the range (0,1) and &nu;&gt;0";
+            } else {
+                var c2 = Number(invchi2cdf(p, nu));
+                document.getElementById("resultC2P").innerHTML = "<code>&nbsp;P(&chi;<sup>2</sup>&lt;<b>" + c2.toFixed(4) + "|&nu; = " + nu + "</b>) = " + chi2cdf(c2, nu).toFixed(4) + "</code>";
+            }
+        }
+
+        // bisection search for chi^2
+        function invchi2cdf(p, nu) {
+            var s = Math.sqrt(2.0 * nu);
+            var lb = 0,
+                ub = nu + 10 * s,
+                m, e, pp;
+            for (var i = 0; i < 100; i++) {
+                m = (lb + ub) / 2;
+                e = (ub - lb) / 2;
+                if (e < 0.00001) break;
+                pp = chi2cdf(m, nu);
+                if (pp < p) {
+                    lb = m;
+                } else {
+                    ub = m;
+                }
+            }
+            return m;
+        }
+
+        /*
+           JS code adaptation by Andrew Beddall May 2020; Version 1.0
+           cdf functions normcdf, tcdf, chi2cdf adapted from the original NIST FORTRAN implementations by
+           https://www.nist.gov/people/james-j-filliben that can be found at https://www.nist.gov/itl/sed/datapac
+        */
+
+        function normcdf(z) {
+            var a = 0.39894228040143,
+                b1 = 0.319381530,
+                b2 = -0.356563782,
+                b3 = 1.781477937,
+                b4 = -1.821255978,
+                b5 = 1.330274429,
+                p = 0.2316419;
+            var x = z;
+            if (x < 0) z = -z;
+            var t = 1 / (1 + p * z);
+            var cdf = 1 - a * Math.exp(-0.5 * z * z) * (b1 * t + b2 * t * t + b3 * t * t * t + b4 * t * t * t * t + b5 * t * t * t * t * t);
+            if (x < 0) cdf = 1 - cdf;
+            return cdf;
+        }
+
+        function tcdf(x, nu) {
+
+            if (nu < 1) return -1.;
+
+            if (nu > 2) {
+                var z = x / Math.sqrt(nu / (nu - 2.0));
+                if (nu < 10 && z < -3000.0) return 0.;
+                if (nu >= 10 && z < -150.0) return 0.;
+                if (nu < 10 && z > 3000.0) return 1.;
+                if (nu >= 10 && z > 150.0) return 1.;
+            }
+
+            if (nu < 1000) {
+
+                var imin;
+                var isOdd = nu % 2;
+                var sum, term;
+                var c = Math.sqrt(nu / (x * x + nu));
+                var csq = nu / (x * x + nu);
+                if (isOdd == 0) {
+                    sum = 1.0;
+                    term = 1.0;
+                    imin = 2;
+                } else {
+                    sum = c;
+                    if (nu == 1) sum = 0.0;
+                    term = c;
+                    imin = 3;
+                }
+
+                var imax = nu - 2;
+                if (imin <= imax) {
+                    for (var i = imin; i <= imax; i = i + 2) {
+                        term = term * ((i - 1.0) / i) * csq;
+                        sum = sum + term;
+                    }
+                }
+                sum = sum * x / Math.sqrt(x * x + nu);
+
+                if (isOdd != 0) {
+                    sum = (2.0 / Math.PI) * (Math.atan(x / Math.sqrt(nu)) + sum);
+                }
+                var cdf = 0.5 + sum / 2.0;
+                return cdf;
+
+            } else {
+                var b11 = 0.25;
+                var b21 = 0.01041666666667,
+                    b22 = 3.0,
+                    b23 = -7.0,
+                    b24 = -5.0,
+                    b25 = -3.0;
+                var b31 = 0.00260416666667,
+                    b32 = 1.0,
+                    b33 = -11.0,
+                    b34 = 14.0,
+                    b35 = 6.0,
+                    b36 = -3.0,
+                    b37 = -15.0;
+                var d1 = x;
+                var d3 = x * x * x;
+                var d5 = d3 * x * x;
+                var d7 = d5 * x * x;
+                var d9 = d7 * x * x;
+                var d11 = d9 * x * x;
+                var term1 = b11 * (d3 + d1) / nu;
+                var term2 = b21 * (b22 * d7 + b23 * d5 + b24 * d3 + b25 * d1) / nu / nu;
+                var term3 = b31 * (b32 * d11 + b33 * d9 + b34 * d7 + b35 * d5 + b36 * d3 + b37 * d1) / nu / nu / nu;
+                var cdf = normcdf(x) - (0.3989422804 * (Math.exp(-x * x / 2.0))) * (term1 + term2 + term3);
+                return cdf;
+            }
+
+        }
+
+        function chi2cdf(x, nu) {
+            if (nu < 1) return -1.0;
+            if (x < 0.0) return -1.0;
+            if (x == 0.0) return 0.0;
+
+            var z = (x - nu) / Math.sqrt(2.0 * nu);
+            if (nu < 10 && z < -200.0) return 0.0;
+            if (nu >= 10 && z < -100.0) return 0.0;
+            if (nu < 10 && z > 200.0) return 1.0;
+            if (nu >= 10 && z > 100.0) return 1.0;
+
+            if (nu < 1000) {
+                var sum, term;
+                var imin, imax;
+
+                var isOdd = nu % 2;
+                if (isOdd == 0) {
+                    sum = 1.0;
+                    term = 1.0;
+                    imin = 2;
+                    imax = nu - 2;
+                } else {
+                    sum = 0.0;
+                    term = 1.0 / Math.sqrt(x);
+                    imin = 1;
+                    imax = nu - 1;
+                }
+
+                if (imin <= imax) {
+                    for (var i = imin; i <= imax; i = i + 2) {
+                        term = term * (x / i);
+                        sum = sum + term;
+                    }
+                }
+                sum = sum * Math.exp(-x / 2.0);
+
+                if (isOdd != 0) {
+                    sum = (Math.sqrt(2.0 / Math.PI)) * sum;
+                    sum = sum + 2.0 * (1.0 - normcdf(Math.sqrt(x)));
+                }
+
+                return 1.0 - sum;
+
+            }
+
+            if (nu >= 1000 && x <= nu) {
+                var dfact = 4.5 * nu;
+                var u = ((x / nu) ** 0.33333333333333 - 1.0 + 1.0 / dfact) * Math.sqrt(dfact);
+                return normcdf(u);
+            }
+
+            if (nu >= 1000 && x > nu) {
+                var b11 = 0.33333333333333;
+                var b21 = -0.02777777777778;
+                var b31 = -0.0006172839506,
+                    b32 = -13.0;
+                var b41 = 0.00018004115226,
+                    b42 = 6.0,
+                    b43 = 17.0;
+                var w = Math.sqrt(x - nu - nu * Math.log(x / nu));
+                var danu = Math.sqrt(2.0 / nu);
+                var d1 = w;
+                var d2 = w * w;
+                var d3 = w * w * w;
+                var term0 = w;
+                var term1 = b11 * danu;
+                var term2 = b21 * d1 * (danu * danu);
+                var term3 = b31 * (d2 + b32) * (danu * danu * danu);
+                var term4 = b41 * (b42 * d3 + b43 * d1) * (danu * danu * danu * danu);
+                var u = term0 + term1 + term2 + term3 + term4;
+                return normcdf(u);
+            }
+
+            return -1.;
+
+        }
+
+    </script>
+</body>
+
+</html>
