@@ -1,6 +1,6 @@
 ---
-layout: post
-title: Blogging Like a Hacker
+layout: null
+title: osbm's world
 ---
 
 
