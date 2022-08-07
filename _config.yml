@@ -4,7 +4,9 @@ email: osmanfbayram@gmail.com
 
 description: Osman faruk bayram's personal blog
 
-twitter_username: jekyllrb
+twitter_username: the_osbm
 github_username:  osbm
 
 theme: minima
+#baseurl: "" 
+#url: ""
