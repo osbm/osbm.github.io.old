@@ -28,3 +28,6 @@ contact_note: >
 
 
 markdown: kramdown
+
+
+enable_darkmode: true
