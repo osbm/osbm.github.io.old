@@ -1,6 +1,6 @@
 ---
 layout: default
-title: osbm's world
+title: skills
 ---
 
 
