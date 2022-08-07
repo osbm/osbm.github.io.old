@@ -1,7 +1,8 @@
 ---
-layout: null
+layout: default
 title: osbm's world
 ---
+
 
 # Tools
 
