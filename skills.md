@@ -4,7 +4,6 @@ title: skills
 description: skills footer text
 ---
 
-
 # Tools
 
 languages:
@@ -44,10 +43,6 @@ used python libraries:
 ![Plotly](https://img.shields.io/badge/Plotly-black.svg?style=for-the-badge&logo=plotly&logoColor=3c4b6f)
 
 
-Synthesizing 5/10 solutions
-
-=======
-
 
 # Languages
 
@@ -84,57 +79,11 @@ css - markup language
 javascript - programming language
 linux - operating system
 
-# Education
-
-## Bachelor of Science in Electrical and Electronics Engineering
-
-[Department of Electrical and Electronics Engineering](http://www.eee.boun.edu.tr/) - [Bogazici University](http://www.boun.edu.tr/)
-
-## Master of Science in Electrical and Electronics Engineering
-
-[Department of Electrical and Electronics Engineering](http://www.eee.boun.edu.tr/) - [Bogazici University](http://www.boun.edu.tr/)
-
-## Ph.D. in Electrical and Electronics Engineering
-
-[Department of Electrical and Electronics Engineering](http://www.eee.boun.edu.tr/) - [Bogazici University](http://www.boun.edu.tr/)
-
-# Work Experience
-
-## Research Assistant
-
-[Department of Electrical and Electronics Engineering](http://www.eee.boun.edu.tr/) - [Bogazici University](http://www.boun.edu.tr/)
-
-## Teaching Assistant
-
-[Department of Electrical and Electronics Engineering](http://www.eee.boun.edu.tr/) - [Bogazici University](http://www.boun.edu.tr/)
-
-# Projects
-
-## [osmanfaruk.github.io](
-
-=======
-
-
 # Languages
 
-c - programming language
 c++ - programming language
-java - programming language
 javascript - programming language
-html - markup language
-css - style sheet language
 sql - query language
-perl - programming language
-php - programming language
-prolog - programming language
-ruby - programming language
-scala - programming language
-go - programming language
-swift - programming language
-kotlin - programming language
-rust - programming language
-haskell - programming language
-
 # Libraries
 
 numpy - scientific computing
@@ -201,26 +150,15 @@ caffe - natural language processing
 caffe2 - natural language processing
 scikit-learn
 
-=======
-
 github actions - automation
 
-# Languages
-
-english - native
-turkish - native
-german - intermediate
-french - beginner
-
-# Skills
-
-# Programming
+english - native-bilingual
+turkish - native-bilingual
 
 python - python
 bash - bash
 make - make
 docker - docker
-travis - travis
 github actions - github actions
 
 # Markup
@@ -233,15 +171,6 @@ latex - latex
 git - git
 github - github
 
-# Static site generators
-
-jekyll - jekyll
-
-# Text editors
-
-vim - vim
-
-# Hosting
 
 github pages - github pages
 
@@ -262,156 +191,6 @@ latex - latex
 
 docker - docker
 
-# Markup languages
-
-markdown - markdown
-latex - latex
-
-# Markup
-
-markdown - markdown
-latex - latex
-
-# Markup language
-
-markdown - markdown
-latex - latex
-
-# Markup languages
-
-markdown - markdown
-latex - latex
-
-# Markup language
-
-markdown - markdown
-latex - latex
-
-# Markup
-
-markdown - markdown
-latex - latex
-
-# Markup language
-
-markdown - markdown
-latex - latex
-
-# Markup languages
-
-markdown - markdown
-latex - latex
-
-# Markup language
-
-markdown - markdown
-latex - latex
-
-# Markup
-
-markdown - markdown
-latex - latex
-
-# Markup language
-
-markdown - markdown
-latex - latex
-
-# Markup languages
-
-markdown - markdown
-latex - latex
-
-# Markup language
-
-markdown - markdown
-latex - latex
-
-# Markup
-
-markdown - markdown
-latex - latex
-
-# Markup language
-
-markdown - markdown
-latex - latex
-
-# Markup languages
-
-markdown - markdown
-latex - latex
-
-# Markup language
-
-markdown - markdown
-latex - latex
-
-# Markup
-
-markdown - markdown
-latex - latex
-
-# Markup language
-
-markdown - markdown
-latex - latex
-
-# Markup languages
-
-markdown - markdown
-latex - latex
-
-# Markup language
-
-markdown - markdown
-latex - latex
-
-# Markup
-
-markdown - markdown
-latex - latex
-
-# Markup language
-
-markdown - markdown
-latex - latex
-
-# Markup languages
-
-markdown - markdown
-latex - latex
-
-# Markup language
-
-markdown - markdown
-latex - latex
-
-# Markup
-
-markdown - markdown
-latex - latex
-
-# Markup language
-
-markdown - markdown
-latex - latex
-
-# Markup languages
-
-markdown - markdown
-latex - latex
-
-# Markup language
-
-markdown - markdown
-latex - latex
-
-# Markup
-
-markdown - markdown
-
-=======
 
 netlify - hosting
 google analytics - analytics
@@ -466,8 +245,6 @@ pandoc-fignos - fignos support
 pandoc-eqnos - eqnos support
 pandoc-tablenos - tablenos support
 pandoc-minted
-
-=======
 
 github actions - automation
 jupyter notebook - interactive computing

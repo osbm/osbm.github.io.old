@@ -17,3 +17,14 @@ linkedin_username: osbm
 theme: minima
 #baseurl: "" 
 #url: ""
+
+navbar_fixed: true
+footer_fixed: true
+
+max_width: 1200px
+
+contact_note: >
+  Feel free to reach out!
+
+
+markdown: kramdown
